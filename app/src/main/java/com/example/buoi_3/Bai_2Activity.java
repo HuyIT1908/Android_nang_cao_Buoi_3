@@ -40,24 +40,30 @@ public class Bai_2Activity extends AppCompatActivity {
 
         lv_b2 = findViewById(R.id.lv_bai2);
 
-
+//
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            // xin quyen
+            // Xin quyền truy cập ảnh trong máy
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     999);
         }
+//        tạo List chuỗi chứa data image
         List<String> ds = new ArrayList<>();
+//        gồm những thứ cần lấy trong ảnh
         String[] projection = {
                 MediaStore.Images.ImageColumns._ID,
                 MediaStore.Images.ImageColumns.DISPLAY_NAME,
                 MediaStore.Images.ImageColumns.DATA,
         };
+//        Con trỏ để lấy dữ liệu ảnh
         Cursor cursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 projection, null, null, null);
+//        nếu có dữ liệu thì mới đọc
         if (cursor.getCount() > 0) {
+//            Đưa con trỏ về đầu
             cursor.moveToFirst();
+
             while (!cursor.isAfterLast()) {
 //                Log.e("--------------" + id , "----------------" + name);
 //                for (int i = 0; i < cursor.getColumnCount(); i++) {
@@ -89,7 +95,7 @@ public class Bai_2Activity extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-
+                                    dialog.dismiss();
                                 }
                             });
                     AlertDialog dialog = builder.create();
@@ -103,6 +109,7 @@ public class Bai_2Activity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        Xin quyền lại
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             // xin quyen
